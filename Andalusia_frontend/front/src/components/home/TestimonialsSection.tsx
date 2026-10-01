@@ -9,7 +9,7 @@ function TestimonialsSection({ testimonials }: Props) {
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>What Our Learners Say</Typography>
-      <Box
+      <Box 
         sx={{
           display: "grid",
           gap: 2,
@@ -17,7 +17,7 @@ function TestimonialsSection({ testimonials }: Props) {
         }}
       >
         {testimonials.map((t) => (
-          <Card key={t.id}>
+          <Card key={t.id} sx = {{backgroundColor: "info.main"}} >
             <CardContent>
               <Typography sx={{ mb: 2 }}>"{t.content}"</Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>

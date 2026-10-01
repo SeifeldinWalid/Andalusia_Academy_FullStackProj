@@ -8,4 +8,4 @@ namespace Full_Stack_Grad_Project.Model
         
         public ICollection<Course> Courses { get; set; } = new List<Course>();
     }
-}
+} 

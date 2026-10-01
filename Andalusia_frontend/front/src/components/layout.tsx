@@ -18,7 +18,7 @@ function Layout() {
             Andalusia Learning Platform
           </Typography>
           {links.map((l) => (
-            <Button key={l.to} color="inherit" component={RouterLink} to={l.to}>
+            <Button key={l.to} color="secondary" component={RouterLink} to={l.to}>
               {l.label}
             </Button>
           ))}
