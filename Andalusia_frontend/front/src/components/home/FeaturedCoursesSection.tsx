@@ -1,5 +1,7 @@
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import type { Course } from "../../types";
+import CourseCard from "../catalog/CourseCard";
 
 interface Props {
   courses: Course[];
@@ -8,9 +10,12 @@ interface Props {
 function FeaturedCoursesSection({ courses }: Props) {
   return (
     <Box sx={{ py: 5 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Featured Courses
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+        <Typography variant="h4">Featured Courses</Typography>
+        <Button component={RouterLink} to="/courses">
+          View all
+        </Button>
+      </Box>
       <Box
         sx={{
           display: "grid",
@@ -23,23 +28,7 @@ function FeaturedCoursesSection({ courses }: Props) {
         }}
       >
         {courses.map((c) => (
-          <Card key={c.id}>
-            {c.imageUrl && (
-              <CardMedia
-                component="img"
-                image={c.imageUrl}
-                alt={c.title}
-                sx={{ height: 140 }}
-              />
-            )}
-            <CardContent>
-              <Typography variant="h6">{c.title}</Typography>
-              <Typography color="primary">{c.categoryName}</Typography>
-              <Typography sx={{ mt: 1, fontWeight: 600 }}>
-                {c.price === 0 ? "Free" : `${c.price} L.E`}
-              </Typography>
-            </CardContent>
-          </Card>
+          <CourseCard key={c.id} course={c} />
         ))}
       </Box>
     </Box>

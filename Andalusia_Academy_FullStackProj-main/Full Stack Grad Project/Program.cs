@@ -6,12 +6,14 @@ using Full_Stack_Grad_Project.Repo.Interfaces;
 using Full_Stack_Grad_Project.Services;
 using Full_Stack_Grad_Project.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<ICourseRepo, CourseRepo>();
@@ -20,6 +22,10 @@ builder.Services.AddScoped<ICmsRepo, CmsRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IHomepageService, HomepageService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProgramRepo, ProgramRepo>();
+builder.Services.AddScoped<IProgramService, ProgramService>();
+builder.Services.AddScoped<ICareerPathRepo, CareerPathRepo>();
+builder.Services.AddScoped<ICareerPathService, CareerPathService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -40,6 +46,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Andalusia Academy API v1");
+    });
 }
 
 app.UseMiddleware<GlobalException>();

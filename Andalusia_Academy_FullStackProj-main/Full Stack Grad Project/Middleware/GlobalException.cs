@@ -28,6 +28,10 @@ namespace Full_Stack_Grad_Project.Middleware
             {
                 await WriteProblemDetails(context, 400, "Bad Request", ex.Message);
             }
+            catch (AlreadyExistException ex)
+            {
+                await WriteProblemDetails(context, 400, "Already Exist", ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception");

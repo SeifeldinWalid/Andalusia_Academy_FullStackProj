@@ -11,7 +11,9 @@ function PartnersSection({ partners }: Props) {
       <Typography variant="h4" sx={{ mb: 3 }}>Trusted by</Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 4 }}>
         {partners.map((p) => (
-          <Box key={p.id} component="img" src={p.logoUrl} alt={p.name} sx={{ height: 50 }} color = "secondary" />
+          <Typography key={p.id} variant="h6" color="text.secondary" sx={{ fontWeight: 600 }}>
+            {p.name}
+          </Typography>
         ))}
       </Box>
     </Box>

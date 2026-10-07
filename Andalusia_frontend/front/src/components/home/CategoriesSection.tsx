@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import type { Category } from "../../types";
 
 interface Props {
@@ -18,10 +19,12 @@ function CategoriesSection({ categories }: Props) {
       >
         {categories.map((c) => (
           <Card key={c.id}>
-            <CardContent>
-              <Typography variant="h6">{c.name}</Typography>
-              <Typography color="text.secondary">{c.courseCount} courses</Typography>
-            </CardContent>
+            <CardActionArea component={RouterLink} to={`/courses?categoryId=${c.id}`} sx={{ height: "100%" }}>
+              <CardContent>
+                <Typography variant="h6">{c.name}</Typography>
+                <Typography color="text.secondary">{c.courseCount} courses</Typography>
+              </CardContent>
+            </CardActionArea>
           </Card>
         ))}
       </Box>

@@ -21,7 +21,7 @@ function TestimonialsSection({ testimonials }: Props) {
             <CardContent>
               <Typography sx={{ mb: 2 }}>"{t.content}"</Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-                <Avatar src={t.avatarUrl ?? undefined}>{t.authorName[0]}</Avatar>
+                <Avatar>{t.authorName[0]}</Avatar>
                 <Box>
                   <Typography sx={{ fontWeight: 600 }}>{t.authorName}</Typography>
                   <Typography variant="body2" color="text.secondary">{t.role}</Typography>

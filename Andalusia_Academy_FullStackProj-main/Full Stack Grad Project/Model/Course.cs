@@ -8,12 +8,17 @@ namespace Full_Stack_Grad_Project.Model
         public string? ImageUrl { get; set; }
         public decimal Price { get; set; } 
         public bool IsFeatured { get; set; }
+        public int DurationHours { get; set; }
+
+        public CourseStatus Status { get; set; } = CourseStatus.Draft;
+        public CourseType Type { get; set; } = CourseType.Online;
+        public CourseLevel Level { get; set; } = CourseLevel.Beginner;
         
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         
-        public int? ProgramId { get; set; }
-        public LearningProgram? Program { get; set; }
+        public ICollection<ProgramCourse> ProgramCourses { get; set; } = new List<ProgramCourse>();
+        public ICollection<CourseSkill> CourseSkills { get; set; } = new List<CourseSkill>();
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
