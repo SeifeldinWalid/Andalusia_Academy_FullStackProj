@@ -1,3 +1,5 @@
+using Full_Stack_Grad_Project.Enums;
+
 namespace Full_Stack_Grad_Project.Model
 {
     public class LearningProgram

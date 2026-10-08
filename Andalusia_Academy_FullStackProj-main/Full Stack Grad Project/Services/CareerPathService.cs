@@ -1,5 +1,5 @@
+using AutoMapper;
 using Full_Stack_Grad_Project.DTOs;
-using Full_Stack_Grad_Project.Mapping;
 using Full_Stack_Grad_Project.Repo.Interfaces;
 using Full_Stack_Grad_Project.Services.Interfaces;
 
@@ -11,17 +11,19 @@ namespace Full_Stack_Grad_Project.Services
 
         private readonly ICareerPathRepo _careerPathRepo;
         private readonly ICourseRepo _courseRepo;
+        private readonly IMapper _mapper;
 
-        public CareerPathService(ICareerPathRepo careerPathRepo, ICourseRepo courseRepo)
+        public CareerPathService(ICareerPathRepo careerPathRepo, ICourseRepo courseRepo, IMapper mapper)
         {
             _careerPathRepo = careerPathRepo;
             _courseRepo = courseRepo;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<CareerPathSummaryDTO>> GetAllCareerPathsAsync()
         {
             var careerPaths = await _careerPathRepo.GetAllCareerPathsAsync();
-            return careerPaths.Select(c => c.ToCareerPathSummaryDTO());
+            return _mapper.Map<IEnumerable<CareerPathSummaryDTO>>(careerPaths);
         }
 
         public async Task<CareerPathDetailsDTO> GetCareerPathDetailsAsync(int id)
@@ -45,18 +47,10 @@ namespace Full_Stack_Grad_Project.Services
             var programCourseIds = programCourses.Select(c => c.Id).ToList();
             var skillCourses = await _courseRepo.GetCoursesBySkillsAsync(skillIds, programCourseIds, ExtraSkillCoursesCount);
 
-            return new CareerPathDetailsDTO
-            {
-                Id = careerPath.Id,
-                Title = careerPath.Title,
-                Description = careerPath.Description,
-                ImageUrl = careerPath.ImageUrl,
-                EstimatedMonths = careerPath.EstimatedMonths,
-                ProgramCount = programs.Count,
-                Skills = careerPath.CareerPathSkills.Select(cs => cs.Skill.ToSkillDTO()).ToList(),
-                Programs = programs.Select(p => p.ToProgramSummaryDTO()).ToList(),
-                RecommendedCourses = programCourses.Concat(skillCourses).Select(c => c.ToCourseSummaryDTO()).ToList()
-            };
+            var dto = _mapper.Map<CareerPathDetailsDTO>(careerPath);
+            dto.Programs = _mapper.Map<List<ProgramSummaryDTO>>(programs);
+            dto.RecommendedCourses = _mapper.Map<List<CourseSummaryDTO>>(programCourses.Concat(skillCourses));
+            return dto;
         }
     }
 }

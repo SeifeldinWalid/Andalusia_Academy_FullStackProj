@@ -1,4 +1,5 @@
 using Full_Stack_Grad_Project.Data;
+using Full_Stack_Grad_Project.Enums;
 using Full_Stack_Grad_Project.Exceptions;
 using Full_Stack_Grad_Project.Model;
 using Full_Stack_Grad_Project.Pagination;

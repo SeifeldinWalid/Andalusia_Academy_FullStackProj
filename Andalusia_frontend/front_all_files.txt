@@ -1,1 +1,2476 @@
-empty
+PROJECT: Andalusia Academy Frontend (front)
+FILE LIST (51 files)
+========================================
+.gitignore
+README.md
+components.json
+eslint.config.js
+index.html
+package.json
+src/App.tsx
+src/components/catalog/CareerPathCard.tsx
+src/components/catalog/CourseCard.tsx
+src/components/catalog/DetailHeader.tsx
+src/components/catalog/PageState.tsx
+src/components/catalog/ProgramCard.tsx
+src/components/catalog/Section.tsx
+src/components/catalog/StatList.tsx
+src/components/catalog/labels.ts
+src/components/home/BusinessSection.tsx
+src/components/home/CategoriesSection.tsx
+src/components/home/ComingSoonSection.tsx
+src/components/home/FeaturedCoursesSection.tsx
+src/components/home/HeroSection.tsx
+src/components/home/PartnersSection.tsx
+src/components/home/TestimonialsSection.tsx
+src/components/layout.tsx
+src/components/ui/button.tsx
+src/hooks/useFetch.ts
+src/index.css
+src/lib/utils.ts
+src/main.tsx
+src/pages/About.tsx
+src/pages/Business.tsx
+src/pages/CareerPathDetails.tsx
+src/pages/CareerPaths.tsx
+src/pages/Contact.tsx
+src/pages/CourseDetails.tsx
+src/pages/Home.tsx
+src/pages/NotFound.tsx
+src/pages/ProgramDetails.tsx
+src/pages/Programs.tsx
+src/pages/courses.tsx
+src/services/api.ts
+src/services/careerPathService.ts
+src/services/courseService.ts
+src/services/homepageService.ts
+src/services/programService.ts
+src/tailwind.css
+src/theme.ts
+src/types/index.ts
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+
+========================================
+FILE: .gitignore
+========================================
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+========================================
+FILE: README.md
+========================================
+# React + TypeScript + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+
+Note: This will impact Vite dev & build performances.
+You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```
+
+You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```
+
+
+========================================
+FILE: components.json
+========================================
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "radix-nova",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/tailwind.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "rtl": false,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
+}
+
+
+========================================
+FILE: eslint.config.js
+========================================
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+    },
+  },
+])
+
+
+========================================
+FILE: index.html
+========================================
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>front</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+
+========================================
+FILE: package.json
+========================================
+{
+  "name": "front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@mui/material": "^9.4.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "axios": "^1.20.0",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.4.0",
+    "lucide-react": "^1.52.0",
+    "radix-ui": "^1.6.7",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@eslint/js": "^10.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^24.19.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "shadcn": "^4.21.1",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.69.0",
+    "vite": "^8.3.0"
+  }
+}
+
+
+========================================
+FILE: src/App.tsx
+========================================
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/layout";
+import Home from "./pages/Home";
+import Courses from "./pages/courses";
+import CourseDetails from "./pages/CourseDetails";
+import Programs from "./pages/Programs";
+import ProgramDetails from "./pages/ProgramDetails";
+import CareerPaths from "./pages/CareerPaths";
+import CareerPathDetails from "./pages/CareerPathDetails";
+import Business from "./pages/Business";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/programs/:id" element={<ProgramDetails />} />
+          <Route path="/career-paths" element={<CareerPaths />} />
+          <Route path="/career-paths/:id" element={<CareerPathDetails />} />
+          <Route path="/business" element={<Business />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+========================================
+FILE: src/components/catalog/CareerPathCard.tsx
+========================================
+import { Card, CardActionArea, CardContent, Chip, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { CareerPathSummary } from "../../types";
+
+interface Props {
+  careerPath: CareerPathSummary;
+}
+
+function CareerPathCard({ careerPath }: Props) {
+  return (
+    <Card sx={{ height: "100%" }}>
+      <CardActionArea
+        component={RouterLink}
+        to={`/career-paths/${careerPath.id}`}
+        sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "stretch" }}
+      >
+        <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {careerPath.title}
+          </Typography>
+          <Typography color="text.secondary" variant="body2" sx={{ mb: 2 }}>
+            {careerPath.description}
+          </Typography>
+          <Stack direction="row" spacing={1} sx={{ mt: "auto", flexWrap: "wrap" }}>
+            <Chip label={`~${careerPath.estimatedMonths} months`} size="small" variant="outlined" />
+            <Chip label={`${careerPath.programCount} programs`} size="small" variant="outlined" />
+          </Stack>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+export default CareerPathCard;
+
+
+========================================
+FILE: src/components/catalog/CourseCard.tsx
+========================================
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Chip,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { CourseSummary } from "../../types";
+import { formatPrice, levelColor, statusLabel } from "./labels";
+
+interface Props {
+  course: CourseSummary & { description?: string };
+  order?: number;
+}
+
+function CourseCard({ course, order }: Props) {
+  return (
+    <Card sx={{ height: "100%" }}>
+      <CardActionArea
+        component={RouterLink}
+        to={`/courses/${course.id}`}
+        sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "stretch" }}
+      >
+        <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
+            {order !== undefined && <Chip label={`Step ${order}`} color="primary" size="small" />}
+            <Typography color="primary" variant="body2" sx={{ flexGrow: 1 }}>
+              {course.categoryName}
+            </Typography>
+            {course.status === "ComingSoon" && (
+              <Chip label={statusLabel(course.status)} color="secondary" size="small" />
+            )}
+          </Box>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {course.title}
+          </Typography>
+          {course.description && (
+            <Typography color="text.secondary" variant="body2" sx={{ mb: 2 }}>
+              {course.description}
+            </Typography>
+          )}
+          <Stack direction="row" spacing={1} sx={{ mt: "auto", mb: 1, flexWrap: "wrap" }}>
+            <Chip label={course.level} color={levelColor[course.level]} size="small" variant="outlined" />
+            <Chip label={course.type} size="small" variant="outlined" />
+          </Stack>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography color="text.secondary" variant="body2">
+              {course.durationHours} hours
+            </Typography>
+            <Typography sx={{ fontWeight: 600 }}>{formatPrice(course.price)}</Typography>
+          </Box>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+export default CourseCard;
+
+
+========================================
+FILE: src/components/catalog/DetailHeader.tsx
+========================================
+import { Box, Breadcrumbs, Link, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { ReactNode } from "react";
+
+interface Props {
+  backTo: string;
+  backLabel: string;
+  title: string;
+  description: string;
+  badges?: ReactNode;
+  aside?: ReactNode;
+}
+
+// Shared hero block for course, program and career path details
+function DetailHeader({ backTo, backLabel, title, description, badges, aside }: Props) {
+  return (
+    <Box>
+      <Breadcrumbs sx={{ mb: 2 }}>
+        <Link component={RouterLink} to={backTo} underline="hover" color="inherit">
+          {backLabel}
+        </Link>
+        <Typography color="text.primary">{title}</Typography>
+      </Breadcrumbs>
+
+      <Box sx={{ maxWidth: 900 }}>
+        {badges}
+        <Typography variant="h3" component="h1" sx={{ my: 2, fontSize: { xs: "2rem", md: "2.75rem" } }}>
+          {title}
+        </Typography>
+        <Typography color="text.secondary" sx={{ fontSize: "1.1rem", mb: 3 }}>
+          {description}
+        </Typography>
+        {aside}
+      </Box>
+    </Box>
+  );
+}
+
+export default DetailHeader;
+
+
+========================================
+FILE: src/components/catalog/PageState.tsx
+========================================
+import { Alert, Box, Button, CircularProgress } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
+export function Loading() {
+  return (
+    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "40vh" }}>
+      <CircularProgress />
+    </Box>
+  );
+}
+
+interface ErrorProps {
+  message: string;
+  backTo?: string;
+  backLabel?: string;
+}
+
+export function ErrorState({ message, backTo, backLabel }: ErrorProps) {
+  return (
+    <Alert
+      severity="error"
+      action={
+        backTo && (
+          <Button color="inherit" size="small" component={RouterLink} to={backTo}>
+            {backLabel ?? "Back"}
+          </Button>
+        )
+      }
+    >
+      {message}
+    </Alert>
+  );
+}
+
+
+========================================
+FILE: src/components/catalog/ProgramCard.tsx
+========================================
+import { Card, CardActionArea, CardContent, Chip, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { ProgramSummary } from "../../types";
+import { levelColor } from "./labels";
+
+interface Props {
+  program: ProgramSummary;
+}
+
+function ProgramCard({ program }: Props) {
+  return (
+    <Card sx={{ height: "100%" }}>
+      <CardActionArea
+        component={RouterLink}
+        to={`/programs/${program.id}`}
+        sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "stretch" }}
+      >
+        <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {program.title}
+          </Typography>
+          <Typography color="text.secondary" variant="body2" sx={{ mb: 2 }}>
+            {program.description}
+          </Typography>
+          <Stack direction="row" spacing={1} sx={{ mt: "auto", flexWrap: "wrap" }}>
+            <Chip label={program.level} color={levelColor[program.level]} size="small" variant="outlined" />
+            <Chip label={`${program.courseCount} courses`} size="small" variant="outlined" />
+            <Chip label={`${program.durationWeeks} weeks`} size="small" variant="outlined" />
+          </Stack>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+export default ProgramCard;
+
+
+========================================
+FILE: src/components/catalog/Section.tsx
+========================================
+import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { ReactNode } from "react";
+import type { Skill } from "../../types";
+
+interface SectionProps {
+  title: string;
+  children: ReactNode;
+  empty?: boolean;
+  emptyText?: string;
+}
+
+// Titled block used on the detail pages
+export function Section({ title, children, empty, emptyText }: SectionProps) {
+  return (
+    <Box sx={{ py: 3 }}>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        {title}
+      </Typography>
+      {empty ? <Typography color="text.secondary">{emptyText ?? "Nothing here yet."}</Typography> : children}
+    </Box>
+  );
+}
+
+export function CardGrid({ children }: { children: ReactNode }) {
+  return (
+    <Box
+      sx={{
+        display: "grid",
+        gap: 2,
+        gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+      }}
+    >
+      {children}
+    </Box>
+  );
+}
+
+// Each skill links to the course search filtered by that skill
+export function SkillChips({ skills }: { skills: Skill[] }) {
+  return (
+    <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+      {skills.map((s) => (
+        <Chip
+          key={s.id}
+          label={s.name}
+          component={RouterLink}
+          to={`/courses?skillId=${s.id}&skillName=${encodeURIComponent(s.name)}`}
+          clickable
+          color="primary"
+          variant="outlined"
+        />
+      ))}
+    </Stack>
+  );
+}
+
+
+========================================
+FILE: src/components/catalog/StatList.tsx
+========================================
+import { Box, Paper, Typography } from "@mui/material";
+
+interface Stat {
+  label: string;
+  value: string | number;
+}
+
+// Row of key facts shown under a detail page title
+function StatList({ stats }: { stats: Stat[] }) {
+  return (
+    <Paper variant="outlined" sx={{ display: "flex", flexWrap: "wrap" }}>
+      {stats.map((s, i) => (
+        <Box
+          key={s.label}
+          sx={{
+            flex: "1 1 120px",
+            p: 2,
+            borderLeft: i === 0 ? "none" : "1px solid",
+            borderColor: "divider",
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {s.label}
+          </Typography>
+          <Typography sx={{ fontWeight: 600 }}>{s.value}</Typography>
+        </Box>
+      ))}
+    </Paper>
+  );
+}
+
+export default StatList;
+
+
+========================================
+FILE: src/components/catalog/labels.ts
+========================================
+import type { CourseLevel, CourseStatus, CourseType } from "../../types";
+
+export const levels: CourseLevel[] = ["Beginner", "Intermediate", "Advanced"];
+export const types: CourseType[] = ["Online", "Onsite", "Recorded", "Hybrid"];
+// Draft and Archived courses are never returned by the public API
+export const publicStatuses: CourseStatus[] = ["Published", "ComingSoon"];
+
+export function statusLabel(status: CourseStatus) {
+  return status === "ComingSoon" ? "Coming Soon" : status;
+}
+
+export function formatPrice(price: number) {
+  return price === 0 ? "Free" : `${price} L.E`;
+}
+
+export const levelColor: Record<CourseLevel, "success" | "warning" | "error"> = {
+  Beginner: "success",
+  Intermediate: "warning",
+  Advanced: "error",
+};
+
+
+========================================
+FILE: src/components/home/BusinessSection.tsx
+========================================
+import { Box, Button, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+function BusinessSection({ title, description }: Props) {
+  return (
+    <Box sx={{ py: 6, px: 3, textAlign: "center", bgcolor: "primary.main", color: "white", borderRadius: 2, my: 4 }}>
+      <Typography variant="h4" sx={{ fontWeight: 700 }}>{title}</Typography>
+      <Typography sx={{ mt: 1, mb: 3 }}>{description}</Typography>
+      <Button variant="contained" color="secondary" component={RouterLink} to="/business">
+        Learn More
+      </Button>
+    </Box>
+  );
+}
+
+export default BusinessSection;
+
+========================================
+FILE: src/components/home/CategoriesSection.tsx
+========================================
+import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { Category } from "../../types";
+
+interface Props {
+  categories: Category[];
+}
+
+function CategoriesSection({ categories }: Props) {
+  return (
+    <Box sx={{ py: 4 }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>Popular Categories</Typography>
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
+        }}
+      >
+        {categories.map((c) => (
+          <Card key={c.id}>
+            <CardActionArea component={RouterLink} to={`/courses?categoryId=${c.id}`} sx={{ height: "100%" }}>
+              <CardContent>
+                <Typography variant="h6">{c.name}</Typography>
+                <Typography color="text.secondary">{c.courseCount} courses</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+export default CategoriesSection;
+
+
+========================================
+FILE: src/components/home/ComingSoonSection.tsx
+========================================
+import { Box, Typography } from "@mui/material";
+
+interface Props {
+  text: string;
+}
+
+function ComingSoonSection({ text }: Props) {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        py: 4,
+        textAlign: "center",
+        bgcolor: "secondary.light",
+        borderRadius: 2,
+        my: 4,
+      }}
+    >
+      <Typography variant="h5" sx={{ fontWeight: 600 }}>
+        Coming Soon
+      </Typography>
+      <Typography sx={{ mt: 1 }}>{text}</Typography>
+    </Box>
+  );
+}
+
+export default ComingSoonSection;
+
+
+========================================
+FILE: src/components/home/FeaturedCoursesSection.tsx
+========================================
+import { Box, Button, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import type { Course } from "../../types";
+import CourseCard from "../catalog/CourseCard";
+
+interface Props {
+  courses: Course[];
+}
+
+function FeaturedCoursesSection({ courses }: Props) {
+  return (
+    <Box sx={{ py: 5 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+        <Typography variant="h4">Featured Courses</Typography>
+        <Button component={RouterLink} to="/courses">
+          View all
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(4, 1fr)",
+          },
+        }}
+      >
+        {courses.map((c) => (
+          <CourseCard key={c.id} course={c} />
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+export default FeaturedCoursesSection;
+
+
+========================================
+FILE: src/components/home/HeroSection.tsx
+========================================
+import { Box, Button, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+function HeroSection({ title, subtitle }: Props) {
+  return (
+    <Box sx={{ textAlign: "center", py: { xs: 6, md: 10 } }}>
+      <Typography variant="h3" sx={{ fontWeight: 700 }}>{title}</Typography>
+      <Typography variant="h6" color="text.secondary" sx={{ mt: 2 }}>
+        {subtitle}
+      </Typography>
+      <Button variant="contained" size="large" component={RouterLink} to="/courses" sx={{ mt: 4 }}>
+        Browse Courses
+      </Button>
+    </Box>
+  );
+}
+
+export default HeroSection;
+
+========================================
+FILE: src/components/home/PartnersSection.tsx
+========================================
+import { Box, Typography } from "@mui/material";
+import type { Partner } from "../../types";
+
+interface Props {
+  partners: Partner[];
+}
+
+function PartnersSection({ partners }: Props) {
+  return (
+    <Box sx={{ py: 4, textAlign: "center" }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>Trusted by</Typography>
+      <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 4 }}>
+        {partners.map((p) => (
+          <Typography key={p.id} variant="h6" color="text.secondary" sx={{ fontWeight: 600 }}>
+            {p.name}
+          </Typography>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+export default PartnersSection;
+
+========================================
+FILE: src/components/home/TestimonialsSection.tsx
+========================================
+import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
+import type { Testimonial } from "../../types";
+
+interface Props {
+  testimonials: Testimonial[];
+}
+
+function TestimonialsSection({ testimonials }: Props) {
+  return (
+    <Box sx={{ py: 4 }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>What Our Learners Say</Typography>
+      <Box 
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+        }}
+      >
+        {testimonials.map((t) => (
+          <Card key={t.id} sx = {{backgroundColor: "info.main"}} >
+            <CardContent>
+              <Typography sx={{ mb: 2 }}>"{t.content}"</Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                <Avatar>{t.authorName[0]}</Avatar>
+                <Box>
+                  <Typography sx={{ fontWeight: 600 }}>{t.authorName}</Typography>
+                  <Typography variant="body2" color="text.secondary">{t.role}</Typography>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+export default TestimonialsSection;
+
+========================================
+FILE: src/components/layout.tsx
+========================================
+import { Link as RouterLink, Outlet } from "react-router-dom";
+import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
+import logo from "../assets/logo.png";
+
+const links = [
+  { label: "Home", to: "/" },
+  { label: "Courses", to: "/courses" },
+  { label: "Programs", to: "/programs" },
+  { label: "Career Paths", to: "/career-paths" },
+  { label: "For Business", to: "/business" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
+];
+
+function Layout() {
+  return (
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <AppBar position="sticky">
+        <Toolbar sx={{ flexWrap: "wrap" }}>
+          <Box
+            component={RouterLink}
+            to="/"
+            sx={{ flexGrow: 1, display: "flex", alignItems: "center", gap: 1.5, color: "inherit", textDecoration: "none" }}
+          >
+            <Box component="img" src={logo} alt="Andalusia Academy logo" sx={{ height: 40, width: 40 }} />
+            <Typography variant="h6">Andalusia Courses Platform</Typography>
+          </Box>
+          {links.map((l) => (
+            <Button key={l.to} color="secondary" component={RouterLink} to={l.to}>
+              {l.label}
+            </Button>
+          ))}
+        </Toolbar>
+      </AppBar>
+
+      <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
+        <Outlet />
+      </Container>
+
+      <Box component="footer" sx={{ py: 3, textAlign: "center", bgcolor: "grey.100" }}>
+        <Typography variant="body2">© Andalusia Academy</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+export default Layout;
+
+========================================
+FILE: src/components/ui/button.tsx
+========================================
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "cn"
+import { Slot } from "radix-ui"
+
+const buttonVariants = cva(
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        outline:
+          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+        ghost:
+          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+        destructive:
+          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default:
+          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        icon: "size-8",
+        "icon-xs":
+          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm":
+          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+        "icon-lg": "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+function Button({
+  className,
+  variant = "default",
+  size = "default",
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {
+  const Comp = asChild ? Slot.Root : "button"
+
+  return (
+    <Comp
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, buttonVariants }
+
+
+========================================
+FILE: src/hooks/useFetch.ts
+========================================
+import { useEffect, useState } from "react";
+import { isAxiosError } from "axios";
+
+// Pass a stable fetcher (module function or useCallback) - it re-runs when the fetcher changes
+function useFetch<T>(fetcher: () => Promise<T>) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Ignore responses that arrive after the fetcher changed (e.g. fast filter changes)
+    let cancelled = false;
+
+    async function load() {
+      try {
+        setLoading(true);
+        setError("");
+        const result = await fetcher();
+        if (!cancelled) setData(result);
+      } catch (err) {
+        if (cancelled) return;
+        setData(null);
+        if (isAxiosError(err) && err.response?.status === 404) {
+          setError("We couldn't find what you were looking for.");
+        } else {
+          setError("Could not load data.");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [fetcher]);
+
+  return { data, loading, error };
+}
+
+export default useFetch;
+
+
+========================================
+FILE: src/index.css
+========================================
+/* :root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+} */
+
+
+========================================
+FILE: src/lib/utils.ts
+========================================
+export { cn } from "cn"
+
+
+========================================
+FILE: src/main.tsx
+========================================
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import "./tailwind.css";
+import App from "./App";
+import theme from "./theme";
+
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </StrictMode>
+);
+
+========================================
+FILE: src/pages/About.tsx
+========================================
+function About() {
+  return <h1>About Us</h1>;
+}
+
+export default About;
+
+========================================
+FILE: src/pages/Business.tsx
+========================================
+function Business() {
+  return <h1>For Business</h1>;
+}
+
+export default Business;
+
+========================================
+FILE: src/pages/CareerPathDetails.tsx
+========================================
+import { useCallback } from "react";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { Box, Divider, Link, Paper, Typography } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getCareerPathDetails } from "../services/careerPathService";
+import DetailHeader from "../components/catalog/DetailHeader";
+import StatList from "../components/catalog/StatList";
+import CourseCard from "../components/catalog/CourseCard";
+import ProgramCard from "../components/catalog/ProgramCard";
+import { CardGrid, Section, SkillChips } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+
+function CareerPathDetails() {
+  const id = Number(useParams().id);
+  const fetchPath = useCallback(() => getCareerPathDetails(id), [id]);
+  const { data: path, loading, error } = useFetch(fetchPath);
+
+  if (loading) return <Loading />;
+  if (error || !path) return <ErrorState message={error} backTo="/career-paths" backLabel="All career paths" />;
+
+  return (
+    <>
+      <DetailHeader
+        backTo="/career-paths"
+        backLabel="Career Paths"
+        title={path.title}
+        description={path.description}
+        aside={
+          <StatList
+            stats={[
+              { label: "Estimated time", value: `~${path.estimatedMonths} months` },
+              { label: "Programs", value: path.programCount },
+              { label: "Skills", value: path.skills.length },
+            ]}
+          />
+        }
+      />
+
+      <Divider sx={{ my: 4 }} />
+
+      <Section title="Recommended skills" empty={path.skills.length === 0}>
+        <SkillChips skills={path.skills} />
+      </Section>
+
+      <Section title="Your roadmap" empty={path.programs.length === 0}>
+        {/* Programs arrive in the order they should be taken */}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {path.programs.map((p, i) => (
+            <Box
+              key={p.id}
+              sx={{
+                display: "grid",
+                gap: 2,
+                alignItems: "stretch",
+                gridTemplateColumns: { xs: "1fr", md: "80px 1fr" },
+              }}
+            >
+              <Paper
+                variant="outlined"
+                sx={{ display: "flex", alignItems: "center", justifyContent: "center", p: 2 }}
+              >
+                <Typography variant="h6" color="primary">
+                  Step {i + 1}
+                </Typography>
+              </Paper>
+              <ProgramCard program={p} />
+            </Box>
+          ))}
+        </Box>
+      </Section>
+
+      <Section title="Recommended courses" empty={path.recommendedCourses.length === 0}>
+        <CardGrid>
+          {path.recommendedCourses.map((c) => (
+            <CourseCard key={c.id} course={c} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Link component={RouterLink} to="/career-paths">
+        ← Back to all career paths
+      </Link>
+    </>
+  );
+}
+
+export default CareerPathDetails;
+
+
+========================================
+FILE: src/pages/CareerPaths.tsx
+========================================
+import { Box, Typography } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getCareerPaths } from "../services/careerPathService";
+import CareerPathCard from "../components/catalog/CareerPathCard";
+import { CardGrid } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+
+function CareerPaths() {
+  const { data, loading, error } = useFetch(getCareerPaths);
+
+  return (
+    <Box>
+      <Typography variant="h4" sx={{ mb: 1 }}>
+        Career Paths
+      </Typography>
+      <Typography color="text.secondary" sx={{ mb: 3 }}>
+        Pick the job you want. Each path bundles the programs and skills that get you there.
+      </Typography>
+
+      {loading && <Loading />}
+      {!loading && error && <ErrorState message={error} />}
+      {!loading && !error && (
+        !data || data.length === 0 ? (
+          <Typography>No career paths found.</Typography>
+        ) : (
+          <CardGrid>
+            {data.map((cp) => (
+              <CareerPathCard key={cp.id} careerPath={cp} />
+            ))}
+          </CardGrid>
+        )
+      )}
+    </Box>
+  );
+}
+
+export default CareerPaths;
+
+
+========================================
+FILE: src/pages/Contact.tsx
+========================================
+function Contact() {
+  return <h1>Contact</h1>;
+}
+
+export default Contact;
+
+========================================
+FILE: src/pages/CourseDetails.tsx
+========================================
+import { useCallback } from "react";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { Chip, Divider, Link, Stack } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getCourseDetails } from "../services/courseService";
+import DetailHeader from "../components/catalog/DetailHeader";
+import StatList from "../components/catalog/StatList";
+import CourseCard from "../components/catalog/CourseCard";
+import ProgramCard from "../components/catalog/ProgramCard";
+import { CardGrid, Section, SkillChips } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+import { formatPrice, levelColor, statusLabel } from "../components/catalog/labels";
+
+function CourseDetails() {
+  const id = Number(useParams().id);
+  const fetchCourse = useCallback(() => getCourseDetails(id), [id]);
+  const { data: course, loading, error } = useFetch(fetchCourse);
+
+  if (loading) return <Loading />;
+  if (error || !course) return <ErrorState message={error} backTo="/courses" backLabel="All courses" />;
+
+  return (
+    <>
+      <DetailHeader
+        backTo="/courses"
+        backLabel="Courses"
+        title={course.title}
+        description={course.description}
+        badges={
+          <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
+            {course.categoryName && (
+              <Chip
+                label={course.categoryName}
+                color="primary"
+                component={RouterLink}
+                to={`/courses?categoryId=${course.categoryId}`}
+                clickable
+              />
+            )}
+            <Chip label={course.level} color={levelColor[course.level]} variant="outlined" />
+            {course.status === "ComingSoon" && <Chip label={statusLabel(course.status)} color="secondary" />}
+          </Stack>
+        }
+        aside={
+          <StatList
+            stats={[
+              { label: "Price", value: formatPrice(course.price) },
+              { label: "Duration", value: `${course.durationHours} hours` },
+              { label: "Format", value: course.type },
+              { label: "Availability", value: statusLabel(course.status) },
+            ]}
+          />
+        }
+      />
+
+      <Divider sx={{ my: 4 }} />
+
+      <Section title="Skills you'll gain" empty={course.skills.length === 0}>
+        <SkillChips skills={course.skills} />
+      </Section>
+
+      <Section
+        title="Part of these programs"
+        empty={course.programs.length === 0}
+        emptyText="This course is offered on its own."
+      >
+        <CardGrid>
+          {course.programs.map((p) => (
+            <ProgramCard key={p.id} program={p} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Section title="Related courses" empty={course.relatedCourses.length === 0}>
+        <CardGrid>
+          {course.relatedCourses.map((c) => (
+            <CourseCard key={c.id} course={c} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Link component={RouterLink} to="/courses">
+        ← Back to all courses
+      </Link>
+    </>
+  );
+}
+
+export default CourseDetails;
+
+
+========================================
+FILE: src/pages/Home.tsx
+========================================
+import { Alert, Box, CircularProgress } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getHomepage } from "../services/homepageService";
+import type { Homepage } from "../types";
+import HeroSection from "../components/home/HeroSection";
+import CategoriesSection from "../components/home/CategoriesSection";
+import FeaturedCoursesSection from "../components/home/FeaturedCoursesSection";
+import ComingSoonSection from "../components/home/ComingSoonSection";
+import BusinessSection from "../components/home/BusinessSection";
+import PartnersSection from "../components/home/PartnersSection";
+import TestimonialsSection from "../components/home/TestimonialsSection";
+
+function Home() {
+  const { data, loading, error } = useFetch<Homepage>(getHomepage);
+
+  if (loading) return <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}><CircularProgress /></Box>;
+  if (error) return <Alert severity="error">{error}</Alert>;
+  if (!data) return null;
+
+  return (
+    <>
+      <HeroSection title={data.heroTitle} subtitle={data.heroSubtitle} />
+      <CategoriesSection categories={data.popularCategories} />
+      <FeaturedCoursesSection courses={data.featuredCourses} />
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+          mb: 4,
+        }}
+      >
+        <ComingSoonSection text={data.comingSoonText} />
+        <BusinessSection
+          title={data.corporateTitle}
+          description={data.corporateDescription}
+        />
+      </Box>
+      <PartnersSection partners={data.partners} />
+      <TestimonialsSection testimonials={data.testimonials} />
+    </>
+  );
+}
+
+export default Home;
+
+
+========================================
+FILE: src/pages/NotFound.tsx
+========================================
+import { Box, Button, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
+function NotFound() {
+  return (
+    <Box sx={{ textAlign: "center", py: 8 }}>
+      <Typography variant="h3" sx={{ mb: 2 }}>
+        Page not found
+      </Typography>
+      <Button variant="contained" component={RouterLink} to="/courses">
+        Browse courses
+      </Button>
+    </Box>
+  );
+}
+
+export default NotFound;
+
+
+========================================
+FILE: src/pages/ProgramDetails.tsx
+========================================
+import { useCallback } from "react";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { Chip, Divider, Link } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getProgramDetails } from "../services/programService";
+import DetailHeader from "../components/catalog/DetailHeader";
+import StatList from "../components/catalog/StatList";
+import CourseCard from "../components/catalog/CourseCard";
+import ProgramCard from "../components/catalog/ProgramCard";
+import CareerPathCard from "../components/catalog/CareerPathCard";
+import { CardGrid, Section, SkillChips } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+import { levelColor } from "../components/catalog/labels";
+
+function ProgramDetails() {
+  const id = Number(useParams().id);
+  const fetchProgram = useCallback(() => getProgramDetails(id), [id]);
+  const { data: program, loading, error } = useFetch(fetchProgram);
+
+  if (loading) return <Loading />;
+  if (error || !program) return <ErrorState message={error} backTo="/programs" backLabel="All programs" />;
+
+  const courses = [...program.courses].sort((a, b) => a.order - b.order);
+
+  return (
+    <>
+      <DetailHeader
+        backTo="/programs"
+        backLabel="Programs"
+        title={program.title}
+        description={program.description}
+        badges={<Chip label={program.level} color={levelColor[program.level]} variant="outlined" />}
+        aside={
+          <StatList
+            stats={[
+              { label: "Courses", value: program.courseCount },
+              { label: "Duration", value: `${program.durationWeeks} weeks` },
+              { label: "Total content", value: `${program.totalHours} hours` },
+            ]}
+          />
+        }
+      />
+
+      <Divider sx={{ my: 4 }} />
+
+      <Section title="Program structure" empty={courses.length === 0}>
+        <CardGrid>
+          {courses.map((c) => (
+            <CourseCard key={c.id} course={c} order={c.order} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Section title="Skills covered" empty={program.skills.length === 0}>
+        <SkillChips skills={program.skills} />
+      </Section>
+
+      <Section
+        title="Leads to these career paths"
+        empty={program.careerPaths.length === 0}
+        emptyText="This program isn't part of a career path yet."
+      >
+        <CardGrid>
+          {program.careerPaths.map((cp) => (
+            <CareerPathCard key={cp.id} careerPath={cp} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Section title="Related programs" empty={program.relatedPrograms.length === 0}>
+        <CardGrid>
+          {program.relatedPrograms.map((p) => (
+            <ProgramCard key={p.id} program={p} />
+          ))}
+        </CardGrid>
+      </Section>
+
+      <Link component={RouterLink} to="/programs">
+        ← Back to all programs
+      </Link>
+    </>
+  );
+}
+
+export default ProgramDetails;
+
+
+========================================
+FILE: src/pages/Programs.tsx
+========================================
+import { useMemo, useState } from "react";
+import { Box, MenuItem, TextField, Typography } from "@mui/material";
+import useFetch from "../hooks/useFetch";
+import { getPrograms } from "../services/programService";
+import ProgramCard from "../components/catalog/ProgramCard";
+import { CardGrid } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+import { levels } from "../components/catalog/labels";
+
+function Programs() {
+  const { data, loading, error } = useFetch(getPrograms);
+  const [level, setLevel] = useState("");
+
+  // Only a handful of programs, so filtering happens client side
+  const programs = useMemo(
+    () => (data ?? []).filter((p) => !level || p.level === level),
+    [data, level]
+  );
+
+  return (
+    <Box>
+      <Typography variant="h4" sx={{ mb: 1 }}>
+        Programs
+      </Typography>
+      <Typography color="text.secondary" sx={{ mb: 3 }}>
+        Structured learning programs that combine several courses in a recommended order.
+      </Typography>
+
+      <TextField
+        select
+        size="small"
+        label="Level"
+        value={level}
+        onChange={(e) => setLevel(e.target.value)}
+        sx={{ mb: 3, minWidth: 200 }}
+      >
+        <MenuItem value="">All levels</MenuItem>
+        {levels.map((l) => (
+          <MenuItem key={l} value={l}>
+            {l}
+          </MenuItem>
+        ))}
+      </TextField>
+
+      {loading && <Loading />}
+      {!loading && error && <ErrorState message={error} />}
+      {!loading && !error && (
+        programs.length === 0 ? (
+          <Typography>No programs found.</Typography>
+        ) : (
+          <CardGrid>
+            {programs.map((p) => (
+              <ProgramCard key={p.id} program={p} />
+            ))}
+          </CardGrid>
+        )
+      )}
+    </Box>
+  );
+}
+
+export default Programs;
+
+
+========================================
+FILE: src/pages/courses.tsx
+========================================
+import { useCallback, useMemo, useState, type FormEvent } from "react";
+import { useSearchParams } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Chip,
+  InputAdornment,
+  MenuItem,
+  Pagination,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Search } from "lucide-react";
+import useFetch from "../hooks/useFetch";
+import { getCategories, searchCourses } from "../services/courseService";
+import type { CourseFilter, CourseLevel, CourseStatus, CourseType } from "../types";
+import CourseCard from "../components/catalog/CourseCard";
+import { CardGrid } from "../components/catalog/Section";
+import { ErrorState, Loading } from "../components/catalog/PageState";
+import { levels, publicStatuses, statusLabel, types } from "../components/catalog/labels";
+
+const PAGE_SIZE = 9;
+
+// Each option maps to the backend's sortBy + order params
+const sortOptions = [
+  { value: "", label: "Default" },
+  { value: "title-asc", label: "Title (A-Z)" },
+  { value: "title-desc", label: "Title (Z-A)" },
+  { value: "price-asc", label: "Price: low to high" },
+  { value: "price-desc", label: "Price: high to low" },
+  { value: "duration-asc", label: "Shortest first" },
+  { value: "duration-desc", label: "Longest first" },
+  { value: "createdAt-desc", label: "Newest" },
+];
+
+function toNumber(value: string | null) {
+  if (!value) return undefined;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : undefined;
+}
+
+function Courses() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchText, setSearchText] = useState(searchParams.get("search") ?? "");
+
+  const sort = searchParams.get("sort") ?? "";
+  const skillName = searchParams.get("skillName");
+
+  // The URL is the single source of truth, so filtered views can be shared and the back button works
+  const filter = useMemo<CourseFilter>(() => {
+    const [sortBy, order] = sort ? sort.split("-") : [];
+    return {
+      search: searchParams.get("search") || undefined,
+      categoryId: toNumber(searchParams.get("categoryId")),
+      skillId: toNumber(searchParams.get("skillId")),
+      level: (searchParams.get("level") as CourseLevel) || undefined,
+      type: (searchParams.get("type") as CourseType) || undefined,
+      status: (searchParams.get("status") as CourseStatus) || undefined,
+      sortBy: (sortBy as CourseFilter["sortBy"]) || undefined,
+      order: (order as CourseFilter["order"]) || undefined,
+      page: toNumber(searchParams.get("page")) ?? 1,
+      pageSize: PAGE_SIZE,
+    };
+  }, [searchParams, sort]);
+
+  const fetchCourses = useCallback(() => searchCourses(filter), [filter]);
+  const { data, loading, error } = useFetch(fetchCourses);
+  const { data: categories } = useFetch(getCategories);
+
+  // Any filter change goes back to page 1
+  function updateParam(key: string, value: string) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (value) next.set(key, value);
+      else next.delete(key);
+      if (key !== "page") next.delete("page");
+      return next;
+    });
+  }
+
+  function handleSearch(e: FormEvent) {
+    e.preventDefault();
+    updateParam("search", searchText.trim());
+  }
+
+  function clearSkill() {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("skillId");
+      next.delete("skillName");
+      next.delete("page");
+      return next;
+    });
+  }
+
+  function clearAll() {
+    setSearchText("");
+    setSearchParams({});
+  }
+
+  const hasFilters = [...searchParams.keys()].some((k) => k !== "page");
+
+  return (
+    <Box>
+      <Typography variant="h4" sx={{ mb: 1 }}>
+        Courses
+      </Typography>
+      <Typography color="text.secondary" sx={{ mb: 3 }}>
+        Browse the catalog, search by keyword and narrow down by category, level and format.
+      </Typography>
+
+      <Paper variant="outlined" sx={{ p: 2, mb: 3 }}>
+        <Box component="form" onSubmit={handleSearch} sx={{ display: "flex", gap: 1, mb: 2 }}>
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Search courses..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search size={18} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          <Button type="submit" variant="contained">
+            Search
+          </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: "grid",
+            gap: 2,
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(5, 1fr)" },
+          }}
+        >
+          <TextField
+            select
+            size="small"
+            label="Category"
+            value={searchParams.get("categoryId") ?? ""}
+            onChange={(e) => updateParam("categoryId", e.target.value)}
+          >
+            <MenuItem value="">All categories</MenuItem>
+            {categories?.map((c) => (
+              <MenuItem key={c.id} value={String(c.id)}>
+                {c.name} ({c.courseCount})
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            select
+            size="small"
+            label="Level"
+            value={filter.level ?? ""}
+            onChange={(e) => updateParam("level", e.target.value)}
+          >
+            <MenuItem value="">All levels</MenuItem>
+            {levels.map((l) => (
+              <MenuItem key={l} value={l}>
+                {l}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            select
+            size="small"
+            label="Format"
+            value={filter.type ?? ""}
+            onChange={(e) => updateParam("type", e.target.value)}
+          >
+            <MenuItem value="">All formats</MenuItem>
+            {types.map((t) => (
+              <MenuItem key={t} value={t}>
+                {t}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            select
+            size="small"
+            label="Availability"
+            value={filter.status ?? ""}
+            onChange={(e) => updateParam("status", e.target.value)}
+          >
+            <MenuItem value="">All</MenuItem>
+            {publicStatuses.map((s) => (
+              <MenuItem key={s} value={s}>
+                {statusLabel(s)}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            select
+            size="small"
+            label="Sort by"
+            value={sort}
+            onChange={(e) => updateParam("sort", e.target.value)}
+          >
+            {sortOptions.map((o) => (
+              <MenuItem key={o.value} value={o.value}>
+                {o.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+
+        {hasFilters && (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2, flexWrap: "wrap" }}>
+            {filter.skillId && (
+              <Chip
+                label={`Skill: ${skillName ?? `#${filter.skillId}`}`}
+                onDelete={clearSkill}
+                color="primary"
+                size="small"
+              />
+            )}
+            <Button size="small" onClick={clearAll}>
+              Clear all filters
+            </Button>
+          </Box>
+        )}
+      </Paper>
+
+      {loading && <Loading />}
+      {!loading && error && <ErrorState message={error} />}
+
+      {!loading && !error && data && (
+        <>
+          <Typography color="text.secondary" sx={{ mb: 2 }}>
+            {data.totalCount} {data.totalCount === 1 ? "course" : "courses"} found
+          </Typography>
+
+          {data.data.length === 0 ? (
+            <Box sx={{ textAlign: "center", py: 6 }}>
+              <Typography variant="h6">No courses match your filters.</Typography>
+              <Button sx={{ mt: 2 }} onClick={clearAll}>
+                Clear filters
+              </Button>
+            </Box>
+          ) : (
+            <CardGrid>
+              {data.data.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </CardGrid>
+          )}
+
+          {data.totalPages > 1 && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+              <Pagination
+                count={data.totalPages}
+                page={data.page}
+                color="primary"
+                onChange={(_, page) => {
+                  updateParam("page", page === 1 ? "" : String(page));
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </Box>
+          )}
+        </>
+      )}
+    </Box>
+  );
+}
+
+export default Courses;
+
+
+========================================
+FILE: src/services/api.ts
+========================================
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "https://localhost:7169/api",
+});
+
+export default api;
+
+========================================
+FILE: src/services/careerPathService.ts
+========================================
+import api from "./api";
+import type { CareerPathDetails, CareerPathSummary } from "../types";
+
+export async function getCareerPaths() {
+  const response = await api.get<CareerPathSummary[]>("/CareerPaths");
+  return response.data;
+}
+
+export async function getCareerPathDetails(id: number) {
+  const response = await api.get<CareerPathDetails>(`/CareerPaths/${id}`);
+  return response.data;
+}
+
+
+========================================
+FILE: src/services/courseService.ts
+========================================
+import api from "./api";
+import type {
+  Category,
+  CourseDetails,
+  CourseFilter,
+  CourseListItem,
+  PageResult,
+} from "../types";
+
+export async function getCourses() {
+  const response = await api.get<CourseListItem[]>("/PublicCatalog/courses");
+  return response.data;
+}
+
+export async function searchCourses(filter: CourseFilter) {
+  const response = await api.get<PageResult<CourseListItem>>(
+    "/PublicCatalog/courses/search",
+    { params: filter }
+  );
+  return response.data;
+}
+
+export async function getCourseDetails(id: number) {
+  const response = await api.get<CourseDetails>(`/PublicCatalog/courses/${id}`);
+  return response.data;
+}
+
+export async function getCategories() {
+  const response = await api.get<Category[]>("/PublicCatalog/categories");
+  return response.data;
+}
+
+
+========================================
+FILE: src/services/homepageService.ts
+========================================
+import api from "./api";
+import type { Homepage } from "../types";
+
+export async function getHomepage() {
+  const response = await api.get<Homepage>("/homepage");
+  return response.data;
+}
+
+========================================
+FILE: src/services/programService.ts
+========================================
+import api from "./api";
+import type { ProgramDetails, ProgramSummary } from "../types";
+
+export async function getPrograms() {
+  const response = await api.get<ProgramSummary[]>("/Programs");
+  return response.data;
+}
+
+export async function getProgramDetails(id: number) {
+  const response = await api.get<ProgramDetails>(`/Programs/${id}`);
+  return response.data;
+}
+
+
+========================================
+FILE: src/tailwind.css
+========================================
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+}
+
+========================================
+FILE: src/theme.ts
+========================================
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: "#7d1427" },
+    secondary: { main: "#f9a825" },
+    info: { main: "#d4d1ce"
+    // info: { main: "rgb(127, 124, 124)"
+     },
+  },
+  shape: { borderRadius: 10 },
+});
+
+export default theme;
+
+========================================
+FILE: src/types/index.ts
+========================================
+// Enums are sent by the API as strings (JsonStringEnumConverter)
+export type CourseStatus = "Draft" | "Published" | "ComingSoon" | "Archived";
+export type CourseType = "Online" | "Onsite" | "Recorded" | "Hybrid";
+export type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
+
+export interface Skill {
+  id: number;
+  name: string;
+}
+
+export interface CourseSummary {
+  id: number;
+  title: string;
+  imageUrl: string | null;
+  price: number;
+  durationHours: number;
+  status: CourseStatus;
+  type: CourseType;
+  level: CourseLevel;
+  categoryName: string | null;
+}
+
+// Kept for the homepage sections
+export type Course = CourseSummary;
+
+export interface CourseListItem extends CourseSummary {
+  description: string;
+  categoryId: number | null;
+}
+
+export interface CourseDetails extends CourseListItem {
+  skills: Skill[];
+  programs: ProgramSummary[];
+  relatedCourses: CourseSummary[];
+}
+
+export interface ProgramSummary {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string | null;
+  level: CourseLevel;
+  durationWeeks: number;
+  courseCount: number;
+}
+
+export interface ProgramCourse extends CourseSummary {
+  order: number;
+}
+
+export interface ProgramDetails extends ProgramSummary {
+  totalHours: number;
+  courses: ProgramCourse[];
+  skills: Skill[];
+  careerPaths: CareerPathSummary[];
+  relatedPrograms: ProgramSummary[];
+}
+
+export interface CareerPathSummary {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string | null;
+  estimatedMonths: number;
+  programCount: number;
+}
+
+export interface CareerPathDetails extends CareerPathSummary {
+  skills: Skill[];
+  programs: ProgramSummary[];
+  recommendedCourses: CourseSummary[];
+}
+
+export interface PageResult<T> {
+  data: T[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface CourseFilter {
+  search?: string;
+  categoryId?: number;
+  skillId?: number;
+  status?: CourseStatus;
+  type?: CourseType;
+  level?: CourseLevel;
+  minPrice?: number;
+  maxPrice?: number;
+  sortBy?: "title" | "price" | "duration" | "createdAt";
+  order?: "asc" | "desc";
+  page?: number;
+  pageSize?: number;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  courseCount: number;
+}
+
+export interface Partner {
+  id: number;
+  name: string;
+  logoUrl: string;
+}
+
+export interface Testimonial {
+  id: number;
+  authorName: string;
+  role: string;
+  content: string;
+  avatarUrl: string | null;
+}
+
+export interface Homepage {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroImageUrl: string | null;
+  corporateTitle: string;
+  corporateDescription: string;
+  comingSoonText: string;
+  featuredCourses: CourseSummary[];
+  popularCategories: Category[];
+  partners: Partner[];
+  testimonials: Testimonial[];
+}
+
+
+========================================
+FILE: tsconfig.app.json
+========================================
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "skipLibCheck": true,
+
+    /* Path alias */
+    "paths": { "@/*": ["./src/*"] },
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
+
+========================================
+FILE: tsconfig.json
+========================================
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"] }
+  }
+}
+
+
+========================================
+FILE: tsconfig.node.json
+========================================
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "es2023",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "module": "nodenext",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+
+========================================
+FILE: vite.config.ts
+========================================
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
+import { defineConfig } from 'vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    babel({ presets: [reactCompilerPreset()] })
+  ],
+})
+

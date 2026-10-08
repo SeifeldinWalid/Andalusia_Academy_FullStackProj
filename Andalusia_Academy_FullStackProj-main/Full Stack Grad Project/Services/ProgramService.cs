@@ -1,5 +1,5 @@
+using AutoMapper;
 using Full_Stack_Grad_Project.DTOs;
-using Full_Stack_Grad_Project.Mapping;
 using Full_Stack_Grad_Project.Repo.Interfaces;
 using Full_Stack_Grad_Project.Services.Interfaces;
 
@@ -10,16 +10,18 @@ namespace Full_Stack_Grad_Project.Services
         private const int RelatedProgramsCount = 3;
 
         private readonly IProgramRepo _programRepo;
+        private readonly IMapper _mapper;
 
-        public ProgramService(IProgramRepo programRepo)
+        public ProgramService(IProgramRepo programRepo, IMapper mapper)
         {
             _programRepo = programRepo;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProgramSummaryDTO>> GetAllProgramsAsync()
         {
             var programs = await _programRepo.GetAllProgramsAsync();
-            return programs.Select(p => p.ToProgramSummaryDTO());
+            return _mapper.Map<IEnumerable<ProgramSummaryDTO>>(programs);
         }
 
         public async Task<ProgramDetailsDTO> GetProgramDetailsAsync(int id)
@@ -32,26 +34,18 @@ namespace Full_Stack_Grad_Project.Services
                 .OrderBy(pc => pc.Order)
                 .ToList();
 
-            return new ProgramDetailsDTO
-            {
-                Id = program.Id,
-                Title = program.Title,
-                Description = program.Description,
-                ImageUrl = program.ImageUrl,
-                Level = program.Level,
-                DurationWeeks = program.DurationWeeks,
-                CourseCount = programCourses.Count,
-                TotalHours = programCourses.Sum(pc => pc.Course.DurationHours),
-                Courses = programCourses.Select(pc => pc.ToProgramCourseDTO()).ToList(),
-                Skills = programCourses
-                    .SelectMany(pc => pc.Course.CourseSkills)
-                    .Select(cs => cs.Skill)
-                    .DistinctBy(s => s.Id)
-                    .Select(s => s.ToSkillDTO())
-                    .ToList(),
-                CareerPaths = program.CareerPathPrograms.Select(cp => cp.CareerPath.ToCareerPathSummaryDTO()).ToList(),
-                RelatedPrograms = relatedPrograms.Select(p => p.ToProgramSummaryDTO()).ToList()
-            };
+            var skills = programCourses
+                .SelectMany(pc => pc.Course.CourseSkills)
+                .Select(cs => cs.Skill)
+                .DistinctBy(s => s.Id);
+
+            var dto = _mapper.Map<ProgramDetailsDTO>(program);
+            dto.CourseCount = programCourses.Count;
+            dto.TotalHours = programCourses.Sum(pc => pc.Course.DurationHours);
+            dto.Courses = _mapper.Map<List<ProgramCourseDTO>>(programCourses);
+            dto.Skills = _mapper.Map<List<SkillDTO>>(skills);
+            dto.RelatedPrograms = _mapper.Map<List<ProgramSummaryDTO>>(relatedPrograms);
+            return dto;
         }
     }
 }

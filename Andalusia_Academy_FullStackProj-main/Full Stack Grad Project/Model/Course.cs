@@ -1,3 +1,5 @@
+using Full_Stack_Grad_Project.Enums;
+
 namespace Full_Stack_Grad_Project.Model
 {
     public class Course
@@ -21,5 +23,7 @@ namespace Full_Stack_Grad_Project.Model
         public ICollection<CourseSkill> CourseSkills { get; set; } = new List<CourseSkill>();
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public bool IsPublic() => Status == CourseStatus.Published || Status == CourseStatus.ComingSoon;
     }
 }

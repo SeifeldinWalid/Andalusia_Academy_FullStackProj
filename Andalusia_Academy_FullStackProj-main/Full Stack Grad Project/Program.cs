@@ -1,4 +1,5 @@
 using Full_Stack_Grad_Project.Data;
+using Full_Stack_Grad_Project.Mapping;
 using Full_Stack_Grad_Project.Middleware;
 using Full_Stack_Grad_Project.Model;
 using Full_Stack_Grad_Project.Repo;
@@ -26,6 +27,11 @@ builder.Services.AddScoped<IProgramRepo, ProgramRepo>();
 builder.Services.AddScoped<IProgramService, ProgramService>();
 builder.Services.AddScoped<ICareerPathRepo, CareerPathRepo>();
 builder.Services.AddScoped<ICareerPathService, CareerPathService>();
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfile>();
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

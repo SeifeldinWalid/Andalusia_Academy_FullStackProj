@@ -1,4 +1,4 @@
-namespace Full_Stack_Grad_Project.Model
+namespace Full_Stack_Grad_Project.Enums
 {
     public enum CourseType
     {

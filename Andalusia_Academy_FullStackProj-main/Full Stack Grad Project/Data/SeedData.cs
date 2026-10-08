@@ -1,3 +1,4 @@
+﻿using Full_Stack_Grad_Project.Enums;
 using Full_Stack_Grad_Project.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,203 +41,353 @@ namespace Full_Stack_Grad_Project.Data
             modelBuilder.Entity<Course>().HasData(
                 new Course
                 {
-                    Id = 1, Title = "HTML & CSS Fundamentals", CategoryId = 1,
+                    Id = 1,
+                    Title = "HTML & CSS Fundamentals",
+                    CategoryId = 1,
                     Description = "Build and style your first web pages with semantic HTML, Flexbox, Grid and responsive design.",
-                    ImageUrl = "https://picsum.photos/seed/html-css/600/400",
-                    Price = 49, DurationHours = 12, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 49,
+                    DurationHours = 12,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 2, Title = "Modern JavaScript (ES6+)", CategoryId = 1,
+                    Id = 2,
+                    Title = "Modern JavaScript (ES6+)",
+                    CategoryId = 1,
                     Description = "Master variables, functions, arrays, objects, async/await and the DOM using modern JavaScript.",
-                    ImageUrl = "https://picsum.photos/seed/javascript/600/400",
-                    Price = 59, DurationHours = 18, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 59,
+                    DurationHours = 18,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 3, Title = "TypeScript Essentials", CategoryId = 1,
+                    Id = 3,
+                    Title = "TypeScript Essentials",
+                    CategoryId = 1,
                     Description = "Add static typing to your JavaScript projects with types, interfaces, generics and strict mode.",
-                    ImageUrl = "https://picsum.photos/seed/typescript/600/400",
-                    Price = 49, DurationHours = 10, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Recorded, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 49,
+                    DurationHours = 10,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 4, Title = "React from Zero to Hero", CategoryId = 1,
+                    Id = 4,
+                    Title = "React from Zero to Hero",
+                    CategoryId = 1,
                     Description = "Build single page applications with components, hooks, routing and API integration in React.",
-                    ImageUrl = "https://picsum.photos/seed/react/600/400",
-                    Price = 79, DurationHours = 24, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 79,
+                    DurationHours = 24,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 5, Title = "C# Programming Fundamentals", CategoryId = 1,
+                    Id = 5,
+                    Title = "C# Programming Fundamentals",
+                    CategoryId = 1,
                     Description = "Learn C# syntax, object oriented programming, collections, LINQ and exception handling.",
-                    ImageUrl = "https://picsum.photos/seed/csharp/600/400",
-                    Price = 59, DurationHours = 20, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 59,
+                    DurationHours = 20,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 6, Title = "Building REST APIs with ASP.NET Core", CategoryId = 1,
+                    Id = 6,
+                    Title = "Building REST APIs with ASP.NET Core",
+                    CategoryId = 1,
                     Description = "Design and build clean REST APIs with controllers, dependency injection, validation and Swagger.",
-                    ImageUrl = "https://picsum.photos/seed/aspnet/600/400",
-                    Price = 89, DurationHours = 28, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Hybrid, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 89,
+                    DurationHours = 28,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Hybrid,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 7, Title = "SQL & Relational Databases", CategoryId = 2,
+                    Id = 7,
+                    Title = "SQL & Relational Databases",
+                    CategoryId = 2,
                     Description = "Write SQL queries, design normalized schemas and work with joins, indexes and transactions.",
-                    ImageUrl = "https://picsum.photos/seed/sql/600/400",
-                    Price = 49, DurationHours = 14, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 49,
+                    DurationHours = 14,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 8, Title = "Entity Framework Core in Depth", CategoryId = 1,
+                    Id = 8,
+                    Title = "Entity Framework Core in Depth",
+                    CategoryId = 1,
                     Description = "Map your domain to a database with EF Core: relationships, migrations, queries and performance.",
-                    ImageUrl = "https://picsum.photos/seed/efcore/600/400",
-                    Price = 69, DurationHours = 16, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Recorded, Level = CourseLevel.Advanced, CreatedAt = SeedDate
+                    Price = 69,
+                    DurationHours = 16,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Advanced,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 9, Title = "Git & GitHub for Teams", CategoryId = 4,
+                    Id = 9,
+                    Title = "Git & GitHub for Teams",
+                    CategoryId = 4,
                     Description = "Version control your code, work with branches and pull requests, and collaborate on GitHub.",
-                    ImageUrl = "https://picsum.photos/seed/git/600/400",
-                    Price = 0, DurationHours = 6, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Recorded, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 0,
+                    DurationHours = 6,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 10, Title = "Python for Everyone", CategoryId = 2,
+                    Id = 10,
+                    Title = "Python for Everyone",
+                    CategoryId = 2,
                     Description = "Start programming with Python: data types, control flow, functions, files and modules.",
-                    ImageUrl = "https://picsum.photos/seed/python/600/400",
-                    Price = 49, DurationHours = 16, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 49,
+                    DurationHours = 16,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 11, Title = "Data Analysis with Pandas", CategoryId = 2,
+                    Id = 11,
+                    Title = "Data Analysis with Pandas",
+                    CategoryId = 2,
                     Description = "Clean, transform and analyze real datasets using Pandas and NumPy in Jupyter notebooks.",
-                    ImageUrl = "https://picsum.photos/seed/pandas/600/400",
-                    Price = 69, DurationHours = 20, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 69,
+                    DurationHours = 20,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 12, Title = "Data Visualization with Power BI", CategoryId = 2,
+                    Id = 12,
+                    Title = "Data Visualization with Power BI",
+                    CategoryId = 2,
                     Description = "Turn data into interactive dashboards and reports that business teams can act on.",
-                    ImageUrl = "https://picsum.photos/seed/powerbi/600/400",
-                    Price = 79, DurationHours = 15, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Onsite, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 79,
+                    DurationHours = 15,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Onsite,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 13, Title = "Machine Learning Foundations", CategoryId = 2,
+                    Id = 13,
+                    Title = "Machine Learning Foundations",
+                    CategoryId = 2,
                     Description = "Understand supervised and unsupervised learning and build models with scikit-learn.",
-                    ImageUrl = "https://picsum.photos/seed/ml/600/400",
-                    Price = 99, DurationHours = 30, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 99,
+                    DurationHours = 30,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 14, Title = "Deep Learning with PyTorch", CategoryId = 2,
+                    Id = 14,
+                    Title = "Deep Learning with PyTorch",
+                    CategoryId = 2,
                     Description = "Build neural networks for computer vision and NLP using PyTorch.",
-                    ImageUrl = "https://picsum.photos/seed/pytorch/600/400",
-                    Price = 129, DurationHours = 32, IsFeatured = false,
-                    Status = CourseStatus.ComingSoon, Type = CourseType.Online, Level = CourseLevel.Advanced, CreatedAt = SeedDate
+                    Price = 129,
+                    DurationHours = 32,
+                    IsFeatured = false,
+                    Status = CourseStatus.ComingSoon,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Advanced,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 15, Title = "Flutter Mobile Apps", CategoryId = 3,
+                    Id = 15,
+                    Title = "Flutter Mobile Apps",
+                    CategoryId = 3,
                     Description = "Build beautiful cross platform mobile apps for Android and iOS with Flutter and Dart.",
-                    ImageUrl = "https://picsum.photos/seed/flutter/600/400",
-                    Price = 79, DurationHours = 26, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 79,
+                    DurationHours = 26,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 16, Title = "Advanced Flutter & State Management", CategoryId = 3,
+                    Id = 16,
+                    Title = "Advanced Flutter & State Management",
+                    CategoryId = 3,
                     Description = "Scale your Flutter apps with Bloc, Riverpod, clean architecture and testing.",
-                    ImageUrl = "https://picsum.photos/seed/flutter-advanced/600/400",
-                    Price = 89, DurationHours = 18, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Recorded, Level = CourseLevel.Advanced, CreatedAt = SeedDate
+                    Price = 89,
+                    DurationHours = 18,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Advanced,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 17, Title = "React Native Crash Course", CategoryId = 3,
+                    Id = 17,
+                    Title = "React Native Crash Course",
+                    CategoryId = 3,
                     Description = "Use your React skills to ship native mobile apps with React Native and Expo.",
-                    ImageUrl = "https://picsum.photos/seed/react-native/600/400",
-                    Price = 69, DurationHours = 14, IsFeatured = false,
-                    Status = CourseStatus.ComingSoon, Type = CourseType.Recorded, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 69,
+                    DurationHours = 14,
+                    IsFeatured = false,
+                    Status = CourseStatus.ComingSoon,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 18, Title = "Docker & Containers", CategoryId = 4,
+                    Id = 18,
+                    Title = "Docker & Containers",
+                    CategoryId = 4,
                     Description = "Package and run applications in containers with Docker, images, volumes and Compose.",
-                    ImageUrl = "https://picsum.photos/seed/docker/600/400",
-                    Price = 69, DurationHours = 14, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 69,
+                    DurationHours = 14,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 19, Title = "Azure Cloud Fundamentals", CategoryId = 4,
+                    Id = 19,
+                    Title = "Azure Cloud Fundamentals",
+                    CategoryId = 4,
                     Description = "Learn core cloud concepts and deploy web apps, databases and storage on Microsoft Azure.",
-                    ImageUrl = "https://picsum.photos/seed/azure/600/400",
-                    Price = 79, DurationHours = 18, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Hybrid, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 79,
+                    DurationHours = 18,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Hybrid,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 20, Title = "CI/CD Pipelines with GitHub Actions", CategoryId = 4,
+                    Id = 20,
+                    Title = "CI/CD Pipelines with GitHub Actions",
+                    CategoryId = 4,
                     Description = "Automate building, testing and deploying your applications with GitHub Actions.",
-                    ImageUrl = "https://picsum.photos/seed/cicd/600/400",
-                    Price = 59, DurationHours = 10, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 59,
+                    DurationHours = 10,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 21, Title = "Cybersecurity Essentials", CategoryId = 5,
+                    Id = 21,
+                    Title = "Cybersecurity Essentials",
+                    CategoryId = 5,
                     Description = "Understand threats, vulnerabilities, encryption and how to protect systems and networks.",
-                    ImageUrl = "https://picsum.photos/seed/cyber/600/400",
-                    Price = 59, DurationHours = 16, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 59,
+                    DurationHours = 16,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 22, Title = "Ethical Hacking & Penetration Testing", CategoryId = 5,
+                    Id = 22,
+                    Title = "Ethical Hacking & Penetration Testing",
+                    CategoryId = 5,
                     Description = "Find and exploit vulnerabilities legally using industry tools in hands-on labs.",
-                    ImageUrl = "https://picsum.photos/seed/ethical-hacking/600/400",
-                    Price = 149, DurationHours = 36, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Onsite, Level = CourseLevel.Advanced, CreatedAt = SeedDate
+                    Price = 149,
+                    DurationHours = 36,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Onsite,
+                    Level = CourseLevel.Advanced,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 23, Title = "UI/UX Design Principles", CategoryId = 6,
+                    Id = 23,
+                    Title = "UI/UX Design Principles",
+                    CategoryId = 6,
                     Description = "Learn user research, wireframing, visual hierarchy and usability testing.",
-                    ImageUrl = "https://picsum.photos/seed/uiux/600/400",
-                    Price = 49, DurationHours = 12, IsFeatured = true,
-                    Status = CourseStatus.Published, Type = CourseType.Online, Level = CourseLevel.Beginner, CreatedAt = SeedDate
+                    Price = 49,
+                    DurationHours = 12,
+                    IsFeatured = true,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Beginner,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 24, Title = "Prototyping with Figma", CategoryId = 6,
+                    Id = 24,
+                    Title = "Prototyping with Figma",
+                    CategoryId = 6,
                     Description = "Design interactive prototypes and design systems with components and auto layout in Figma.",
-                    ImageUrl = "https://picsum.photos/seed/figma/600/400",
-                    Price = 59, DurationHours = 10, IsFeatured = false,
-                    Status = CourseStatus.Published, Type = CourseType.Recorded, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 59,
+                    DurationHours = 10,
+                    IsFeatured = false,
+                    Status = CourseStatus.Published,
+                    Type = CourseType.Recorded,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 },
                 new Course
                 {
-                    Id = 25, Title = "Web Accessibility Basics", CategoryId = 1,
+                    Id = 25,
+                    Title = "Web Accessibility Basics",
+                    CategoryId = 1,
                     Description = "Make your websites usable for everyone by following WCAG guidelines.",
-                    ImageUrl = "https://picsum.photos/seed/a11y/600/400",
-                    Price = 39, DurationHours = 8, IsFeatured = false,
-                    Status = CourseStatus.Draft, Type = CourseType.Online, Level = CourseLevel.Intermediate, CreatedAt = SeedDate
+                    Price = 39,
+                    DurationHours = 8,
+                    IsFeatured = false,
+                    Status = CourseStatus.Draft,
+                    Type = CourseType.Online,
+                    Level = CourseLevel.Intermediate,
+                    CreatedAt = SeedDate
                 }
             );
 
@@ -280,45 +431,59 @@ namespace Full_Stack_Grad_Project.Data
             modelBuilder.Entity<LearningProgram>().HasData(
                 new LearningProgram
                 {
-                    Id = 1, Title = "Front-End Web Development", Level = CourseLevel.Beginner, DurationWeeks = 12,
-                    Description = "Go from your first HTML page to production ready React applications.",
-                    ImageUrl = "https://picsum.photos/seed/program-frontend/600/400"
+                    Id = 1,
+                    Title = "Front-End Web Development",
+                    Level = CourseLevel.Beginner,
+                    DurationWeeks = 12,
+                    Description = "Go from your first HTML page to production ready React applications."
                 },
                 new LearningProgram
                 {
-                    Id = 2, Title = "Back-End Development with .NET", Level = CourseLevel.Intermediate, DurationWeeks = 14,
-                    Description = "Build secure, data driven REST APIs with C#, ASP.NET Core, SQL Server and EF Core.",
-                    ImageUrl = "https://picsum.photos/seed/program-backend/600/400"
+                    Id = 2,
+                    Title = "Back-End Development with .NET",
+                    Level = CourseLevel.Intermediate,
+                    DurationWeeks = 14,
+                    Description = "Build secure, data driven REST APIs with C#, ASP.NET Core, SQL Server and EF Core."
                 },
                 new LearningProgram
                 {
-                    Id = 3, Title = "Data Analysis Professional", Level = CourseLevel.Beginner, DurationWeeks = 10,
-                    Description = "Collect, clean, analyze and visualize data to answer real business questions.",
-                    ImageUrl = "https://picsum.photos/seed/program-data/600/400"
+                    Id = 3,
+                    Title = "Data Analysis Professional",
+                    Level = CourseLevel.Beginner,
+                    DurationWeeks = 10,
+                    Description = "Collect, clean, analyze and visualize data to answer real business questions."
                 },
                 new LearningProgram
                 {
-                    Id = 4, Title = "Machine Learning Engineer Track", Level = CourseLevel.Advanced, DurationWeeks = 16,
-                    Description = "Build, train and evaluate machine learning and deep learning models end to end.",
-                    ImageUrl = "https://picsum.photos/seed/program-ml/600/400"
+                    Id = 4,
+                    Title = "Machine Learning Engineer Track",
+                    Level = CourseLevel.Advanced,
+                    DurationWeeks = 16,
+                    Description = "Build, train and evaluate machine learning and deep learning models end to end."
                 },
                 new LearningProgram
                 {
-                    Id = 5, Title = "Mobile App Development", Level = CourseLevel.Beginner, DurationWeeks = 10,
-                    Description = "Design and ship cross platform mobile apps for Android and iOS.",
-                    ImageUrl = "https://picsum.photos/seed/program-mobile/600/400"
+                    Id = 5,
+                    Title = "Mobile App Development",
+                    Level = CourseLevel.Beginner,
+                    DurationWeeks = 10,
+                    Description = "Design and ship cross platform mobile apps for Android and iOS."
                 },
                 new LearningProgram
                 {
-                    Id = 6, Title = "DevOps & Cloud Engineering", Level = CourseLevel.Intermediate, DurationWeeks = 12,
-                    Description = "Automate delivery and run applications reliably in containers and the cloud.",
-                    ImageUrl = "https://picsum.photos/seed/program-devops/600/400"
+                    Id = 6,
+                    Title = "DevOps & Cloud Engineering",
+                    Level = CourseLevel.Intermediate,
+                    DurationWeeks = 12,
+                    Description = "Automate delivery and run applications reliably in containers and the cloud."
                 },
                 new LearningProgram
                 {
-                    Id = 7, Title = "Product Design (UI/UX)", Level = CourseLevel.Beginner, DurationWeeks = 8,
-                    Description = "Research, design and prototype digital products that users love.",
-                    ImageUrl = "https://picsum.photos/seed/program-design/600/400"
+                    Id = 7,
+                    Title = "Product Design (UI/UX)",
+                    Level = CourseLevel.Beginner,
+                    DurationWeeks = 8,
+                    Description = "Research, design and prototype digital products that users love."
                 }
             );
 
@@ -363,39 +528,45 @@ namespace Full_Stack_Grad_Project.Data
             modelBuilder.Entity<CareerPath>().HasData(
                 new CareerPath
                 {
-                    Id = 1, Title = "Full-Stack Web Developer", EstimatedMonths = 9,
-                    Description = "Build complete web applications, from responsive React front ends to .NET APIs and databases.",
-                    ImageUrl = "https://picsum.photos/seed/path-fullstack/600/400"
+                    Id = 1,
+                    Title = "Full-Stack Web Developer",
+                    EstimatedMonths = 9,
+                    Description = "Build complete web applications, from responsive React front ends to .NET APIs and databases."
                 },
                 new CareerPath
                 {
-                    Id = 2, Title = "Data Scientist", EstimatedMonths = 8,
-                    Description = "Turn raw data into insights and predictions using Python, SQL and machine learning.",
-                    ImageUrl = "https://picsum.photos/seed/path-data/600/400"
+                    Id = 2,
+                    Title = "Data Scientist",
+                    EstimatedMonths = 8,
+                    Description = "Turn raw data into insights and predictions using Python, SQL and machine learning."
                 },
                 new CareerPath
                 {
-                    Id = 3, Title = "Mobile Developer", EstimatedMonths = 6,
-                    Description = "Create cross platform mobile apps that run on Android and iOS.",
-                    ImageUrl = "https://picsum.photos/seed/path-mobile/600/400"
+                    Id = 3,
+                    Title = "Mobile Developer",
+                    EstimatedMonths = 6,
+                    Description = "Create cross platform mobile apps that run on Android and iOS."
                 },
                 new CareerPath
                 {
-                    Id = 4, Title = "Cloud & DevOps Engineer", EstimatedMonths = 7,
-                    Description = "Automate, deploy and operate applications at scale in the cloud.",
-                    ImageUrl = "https://picsum.photos/seed/path-devops/600/400"
+                    Id = 4,
+                    Title = "Cloud & DevOps Engineer",
+                    EstimatedMonths = 7,
+                    Description = "Automate, deploy and operate applications at scale in the cloud."
                 },
                 new CareerPath
                 {
-                    Id = 5, Title = "UI/UX Designer", EstimatedMonths = 4,
-                    Description = "Design intuitive and accessible digital experiences from research to prototype.",
-                    ImageUrl = "https://picsum.photos/seed/path-design/600/400"
+                    Id = 5,
+                    Title = "UI/UX Designer",
+                    EstimatedMonths = 4,
+                    Description = "Design intuitive and accessible digital experiences from research to prototype."
                 },
                 new CareerPath
                 {
-                    Id = 6, Title = "Cybersecurity Analyst", EstimatedMonths = 6,
-                    Description = "Protect organizations by finding vulnerabilities and defending systems and networks.",
-                    ImageUrl = "https://picsum.photos/seed/path-cyber/600/400"
+                    Id = 6,
+                    Title = "Cybersecurity Analyst",
+                    EstimatedMonths = 6,
+                    Description = "Protect organizations by finding vulnerabilities and defending systems and networks."
                 }
             );
 
@@ -438,37 +609,41 @@ namespace Full_Stack_Grad_Project.Data
             );
 
             modelBuilder.Entity<Partner>().HasData(
-                new Partner { Id = 1, Name = "Microsoft", LogoUrl = "https://picsum.photos/seed/partner-1/200/100" },
-                new Partner { Id = 2, Name = "Google Cloud", LogoUrl = "https://picsum.photos/seed/partner-2/200/100" },
-                new Partner { Id = 3, Name = "AWS Academy", LogoUrl = "https://picsum.photos/seed/partner-3/200/100" },
-                new Partner { Id = 4, Name = "Cisco Networking Academy", LogoUrl = "https://picsum.photos/seed/partner-4/200/100" },
-                new Partner { Id = 5, Name = "ITIDA", LogoUrl = "https://picsum.photos/seed/partner-5/200/100" }
+                new Partner { Id = 1, Name = "Microsoft", LogoUrl = string.Empty },
+                new Partner { Id = 2, Name = "Google Cloud", LogoUrl = string.Empty },
+                new Partner { Id = 3, Name = "AWS Academy", LogoUrl = string.Empty },
+                new Partner { Id = 4, Name = "Cisco Networking Academy", LogoUrl = string.Empty },
+                new Partner { Id = 5, Name = "ITIDA", LogoUrl = string.Empty }
             );
 
             modelBuilder.Entity<Testimonial>().HasData(
                 new Testimonial
                 {
-                    Id = 1, AuthorName = "Sara Ahmed", Role = "Front-End Developer",
-                    Content = "The Front-End program took me from zero to my first job in less than a year. The projects were exactly what interviewers asked about.",
-                    AvatarUrl = "https://i.pravatar.cc/150?img=47"
+                    Id = 1,
+                    AuthorName = "Sara Ahmed",
+                    Role = "Front-End Developer",
+                    Content = "The Front-End program took me from zero to my first job in less than a year. The projects were exactly what interviewers asked about."
                 },
                 new Testimonial
                 {
-                    Id = 2, AuthorName = "Omar Khaled", Role = "Data Analyst",
-                    Content = "Clear explanations, real datasets and great mentors. The Power BI course alone paid for itself.",
-                    AvatarUrl = "https://i.pravatar.cc/150?img=12"
+                    Id = 2,
+                    AuthorName = "Omar Khaled",
+                    Role = "Data Analyst",
+                    Content = "Clear explanations, real datasets and great mentors. The Power BI course alone paid for itself."
                 },
                 new Testimonial
                 {
-                    Id = 3, AuthorName = "Mariam Hassan", Role = "Mobile Developer",
-                    Content = "I published my first Flutter app on the Play Store while still in the program.",
-                    AvatarUrl = "https://i.pravatar.cc/150?img=45"
+                    Id = 3,
+                    AuthorName = "Mariam Hassan",
+                    Role = "Mobile Developer",
+                    Content = "I published my first Flutter app on the Play Store while still in the program."
                 },
                 new Testimonial
                 {
-                    Id = 4, AuthorName = "Youssef Ali", Role = "Back-End Developer",
-                    Content = "The ASP.NET Core and EF Core courses are the most practical .NET content I have found.",
-                    AvatarUrl = "https://i.pravatar.cc/150?img=33"
+                    Id = 4,
+                    AuthorName = "Youssef Ali",
+                    Role = "Back-End Developer",
+                    Content = "The ASP.NET Core and EF Core courses are the most practical .NET content I have found."
                 }
             );
         }
